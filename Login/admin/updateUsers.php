@@ -30,7 +30,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
      }
     
     // Xác thực mật khẩu
-    $input_password = trim($_POST["password"]);
+    $input_password = $_POST["password"];
     if (empty($input_password)) {
         $password_err = "Please enter the password amount.";
     } elseif (!ctype_digit($input_password)) {
@@ -52,7 +52,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Kiểm tra lỗi đầu vào trước khi chèn vào cơ sở dữ liệu
 if (empty($email_err) && empty($username_err) && empty($password_err) && empty($CCCD_err)) {
         // Chuẩn bị câu lệnh Update
-        $sql = "UPDATE quanly SET email=?, username=?, password=?, CCCD=? WHERE id=?";
+        $sql = "UPDATE quanly SET email={$email}, username=?, password=?, CCCD=? WHERE id=?";
  
         if($stmt = $mysqli->prepare($sql)){
             // Liên kết các biến với câu lệnh đã chuẩn bị
